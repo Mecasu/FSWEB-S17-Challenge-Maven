@@ -1,9 +1,8 @@
 package com.workintech.spring17challenge;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.workintech.spring17challenge.entity.*;
-import com.workintech.spring17challenge.exceptions.ApiErrorResponse;
-import com.workintech.spring17challenge.exceptions.ApiException;
+
+import model.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import exceptions.ApiException;
+import exceptions.ApiErrorResponse;
+import exceptions.GlobalExceptionHandler;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -82,7 +85,7 @@ class MainTest {
 
     @Test
     void testCreateCourseValidationFailure() throws Exception {
-        Course invalidCourse = new Course(null, null, null, null); // Assuming this will fail validation
+        Course invalidCourse = new Course(null, null, 0, null); // Assuming this will fail validation
 
         mockMvc.perform(post("/courses")
                         .contentType(MediaType.APPLICATION_JSON)
